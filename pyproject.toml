@@ -1,0 +1,10 @@
+[project]
+name = "agenticai-camp25"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ddgs>=9.6.0",
+    "pydantic-ai>=1.0.8",
+]
