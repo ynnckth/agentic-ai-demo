@@ -1,6 +1,6 @@
 # Agentic AI Demo
 
-A simple demo showcasing the building blocks of Agentic AI
+A simple demo showcasing the building blocks of Agentic AI using Python and [PydanticAI](https://ai.pydantic.dev/).
 
 ## Setup
 
@@ -9,9 +9,7 @@ Make sure you have the following things installed:
 - [uv](https://docs.astral.sh/uv/)
 - [node.js](https://nodejs.org/)
 
-## Run Demo
-
-### 1. Configure OpenAI key
+### Configure OpenAI key
 
 Create a `.env` file at the project's top level and add the following content:
 ```
@@ -30,19 +28,15 @@ On Windows (PowerShell):
 $env:OPENAI_API_KEY="<your API key>"
 ```
 
-### 2. Run Demo
+## Available Demos
 
-```bash
-uv run main_01_basic.py
-```
-
-## Demos
-
-There are four demos:
+The following demos are available:
 
 1. A basic agent with which you can chat
+```shell
+uv run main_01_basic.py
 ```
-$ uv run main_01_basic.py
+```
 USER: What's today's weather in singapore?
 ASSISTANT: I don't have real-time data access, so I can't provide the current weather in Singapore. For the most accurate and up-to-date information, please check a trusted weather website or app like:
 
@@ -55,8 +49,10 @@ Would you like to know the general climate patterns in Singapore or tips on what
 ```
 
 2. Adding your own custom tools written in Python
+```shell
+uv run main_02_python_tool.py
 ```
-$ uv run main_02_python_tool.py
+```
 USER: What's today's weather in singapore?
   [TOOLS] get_weather({"location":"singapore"})
   [TOOLS] -> result: It's sunny and 25 °C in singapore.
@@ -64,8 +60,10 @@ ASSISTANT: Today's weather in Singapore is sunny with a temperature of 25°C.
 ```
 
 3. Adding out of the box tools from existing libraries, see [pydantic ai tools](https://ai.pydantic.dev/common-tools/) and [langchain tools](https://ai.pydantic.dev/third-party-tools/) for examples
+```shell
+uv run main_03_ext_tool.py
 ```
-$ uv run main_03_ext_tool.py
+```
 USER: What's today's weather in singapore?
   [TOOLS] duckduckgo_search({"query":"today's weather in Singapore"})
   [TOOLS] -> result: [{'title': 'Singapore , Central Singapore , Singapore Weather ... '}]
@@ -73,6 +71,9 @@ ASSISTANT: Today's weather in Singapore is mostly cloudy with a high of around 3
 ```
 
 4. Adding MCP servers, see [mcp server collection](https://mcpservers.org/) for examples
+```shell
+uv run main_04_mcp.py
+```
 ```
 $ uv run main_04_mcp.py
 USER: Can you check today's weather in Singapore by searching in google?
@@ -91,3 +92,17 @@ ASSISTANT: Here is today's weather in Singapore, based on Google:
 
 This information is current as of Friday, 8:00 pm, and reflects generally cloudy conditions. If you need more detailed hourly or extended forecasts, let me know!
 ```
+
+5. UI integration using AG-UI and CopilotKit
+```shell
+# Run the server (agent)
+uv run main_05_ui.py
+```
+```shell
+# Run the UI
+cd ui
+npm run dev
+```
+
+Open the webapp at:
+> http://locahost:3000
