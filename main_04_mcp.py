@@ -1,10 +1,14 @@
+from dotenv import load_dotenv
 from pydantic_ai import Agent
 from pydantic_ai.mcp import MCPServerStdio
 
 from helpers import log_events
 
 
-server = MCPServerStdio("npx", args=["-y", "@playwright/mcp@latest"])
+load_dotenv()
+
+
+server = MCPServerStdio("npx", args=["-y", "@playwright/mcp@latest"], timeout=60)
 
 
 agent = Agent(

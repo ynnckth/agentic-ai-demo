@@ -1,6 +1,10 @@
+from dotenv import load_dotenv
 from pydantic_ai import Agent
 
 from helpers import log_events
+
+
+load_dotenv()
 
 
 agent = Agent(

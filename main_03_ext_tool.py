@@ -1,7 +1,11 @@
+from dotenv import load_dotenv
 from pydantic_ai import Agent
 from pydantic_ai.common_tools.duckduckgo import duckduckgo_search_tool
 
 from helpers import log_events
+
+
+load_dotenv()
 
 
 agent = Agent(

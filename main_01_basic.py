@@ -1,4 +1,8 @@
+from dotenv import load_dotenv
 from pydantic_ai import Agent
+
+
+load_dotenv()
 
 
 agent = Agent(
