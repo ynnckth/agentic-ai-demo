@@ -1,5 +1,7 @@
 # Agentic AI Demo
 
+A simple demo showcasing the building blocks of Agentic AI
+
 ## Setup
 
 Make sure you have the following things installed:
