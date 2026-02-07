@@ -35,4 +35,3 @@ Using external tools allows you to quickly add powerful capabilities to your age
 
 - Python with uv installed
 - OpenAI API key configured (see main project README)
-
