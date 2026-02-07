@@ -5,12 +5,12 @@ import '@copilotkit/react-ui/styles.css';
 import App from './App.tsx';
 import { CopilotKit } from '@copilotkit/react-core';
 
-// TODO: Extract as environment variable
-const copilotKitRuntimeUrl = 'http://localhost:4000/api/copilotkit';
+const copilotKitRuntimeUrl = import.meta.env.VITE_COPILOTKIT_RUNTIME_URL;
+const copilotKitAgentName = import.meta.env.VITE_COPILOTKIT_AGENT_NAME;
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CopilotKit runtimeUrl={copilotKitRuntimeUrl} agent="demo_agent">
+    <CopilotKit runtimeUrl={copilotKitRuntimeUrl} agent={copilotKitAgentName}>
       <App />
     </CopilotKit>
   </StrictMode>,
