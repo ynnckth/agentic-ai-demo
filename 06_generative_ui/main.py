@@ -1,0 +1,40 @@
+from dotenv import load_dotenv
+from pydantic_ai import Agent
+from starlette.middleware.cors import CORSMiddleware
+import uvicorn
+
+
+load_dotenv()
+
+
+agent = Agent(
+    "openai:gpt-4.1",
+    system_prompt=(
+        "You are a helpful assistant for a web chat demo. "
+        "Keep replies concise and conversational."
+        "When asked about weather in a specific location, ALWAYS use the get_weather tool."
+    ),
+)
+
+@agent.tool_plain
+def get_weather(location: str) -> str:
+    """Get the current weather."""
+    return f"It's sunny in {location}."
+
+app = agent.to_ag_ui()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4000"], # CopilotKit Runtime
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+def main() -> None:
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
+if __name__ == "__main__":
+    main()
+
