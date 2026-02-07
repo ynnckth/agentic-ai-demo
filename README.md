@@ -34,7 +34,7 @@ The following demos are available:
 
 1. A basic agent with which you can chat
 ```shell
-uv run main_01_basic.py
+uv run 01_basic/main.py
 ```
 ```
 USER: What's today's weather in singapore?
@@ -50,7 +50,7 @@ Would you like to know the general climate patterns in Singapore or tips on what
 
 2. Adding your own custom tools written in Python
 ```shell
-uv run main_02_python_tool.py
+uv run 02_custom_tool/main.py
 ```
 ```
 USER: What's today's weather in singapore?
@@ -61,7 +61,7 @@ ASSISTANT: Today's weather in Singapore is sunny with a temperature of 25°C.
 
 3. Adding out of the box tools from existing libraries, see [pydantic ai tools](https://ai.pydantic.dev/common-tools/) and [langchain tools](https://ai.pydantic.dev/third-party-tools/) for examples
 ```shell
-uv run main_03_ext_tool.py
+uv run 03_external_tool/main.py
 ```
 ```
 USER: What's today's weather in singapore?
@@ -72,7 +72,7 @@ ASSISTANT: Today's weather in Singapore is mostly cloudy with a high of around 3
 
 4. Adding MCP servers, see [mcp server collection](https://mcpservers.org/) for examples
 ```shell
-uv run main_04_mcp.py
+uv run 04_mcp/main.py
 ```
 ```
 $ uv run main_04_mcp.py
@@ -96,11 +96,11 @@ This information is current as of Friday, 8:00 pm, and reflects generally cloudy
 5. UI integration using AG-UI and CopilotKit
 ```shell
 # Run the server (agent)
-uv run main_05_ui.py
+uv run 05_basic_ui/main.py
 ```
 ```shell
 # Run the UI
-cd ui
+cd 05_basic_ui/ui
 npm run dev
 ```
 
