@@ -1,13 +1,12 @@
-import './App.css'
-import {CopilotChat} from '@copilotkit/react-ui';
+import './App.css';
+import { CopilotChat } from '@copilotkit/react-ui';
 
 function App() {
-
   return (
-    <div>
-        <CopilotChat />
+    <div className="app-container">
+      <CopilotChat />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
