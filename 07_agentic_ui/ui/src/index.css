@@ -23,3 +23,14 @@ body,
 html {
     height: 100%;
 }
+
+/* Fix horizontal scroll bar in suggestions section */
+.copilotKitMessagesFooter {
+    width: 90%!important;
+}
+
+/* Fix no margin for chat input field */
+.copilotKitInputContainer {
+    width: 90%!important;
+    margin: 5px auto!important;
+}
