@@ -20,7 +20,7 @@ const PianoKeyboard = () => {
   const whiteKeys = PIANO_KEYS.filter((key) => !key.isBlack);
   const blackKeys = PIANO_KEYS.filter((key) => key.isBlack);
 
-  const handleKeyPress = (note: string) => {
+  const handleKeyPress = (note: string, duration = 200) => {
     setActiveKey(note);
 
     // Find the frequency for this note and play it
@@ -31,14 +31,34 @@ const PianoKeyboard = () => {
     }
 
     // Reset active key after a short delay
-    setTimeout(() => setActiveKey(null), 200);
+    setTimeout(() => setActiveKey(null), duration);
+  };
+
+  const handleChord = (notes: string[]) => {
+    console.log('Playing chord:', notes);
+    // Play all notes simultaneously
+    notes.forEach((note) => {
+      const key = PIANO_KEYS.find((k) => k.note === note);
+      if (key) {
+        audioEngine.playSound(key.frequency);
+      }
+    });
+  };
+
+  const handleMelody = async (notes: string[], tempo = 500) => {
+    console.log('Playing melody:', notes, 'at tempo:', tempo, 'ms');
+    // Play notes one at a time with a delay
+    for (const note of notes) {
+      handleKeyPress(note, tempo);
+      await new Promise((resolve) => setTimeout(resolve, tempo));
+    }
   };
 
   // Define CopilotKit action for the agent to play notes
   useCopilotAction({
     name: 'playNote',
     description:
-      'Play a note on the piano keyboard. Available notes are C4, C#4, D4, D#4, E4, F4, F#4, G4, G#4, A4, A#4, B4, C5, C#5, D5, D#5, E5, F5, F#5, G5, G#5, A5, A#5, B5',
+      'Play a single note on the piano keyboard. Use this for playing individual notes. Available notes are C4, C#4, D4, D#4, E4, F4, F#4, G4, G#4, A4, A#4, B4, C5, C#5, D5, D#5, E5, F5, F#5, G5, G#5, A5, A#5, B5',
     available: 'remote',
     parameters: [
       {
@@ -58,6 +78,75 @@ const PianoKeyboard = () => {
 
       handleKeyPress(note);
       return `Played note: ${note}`;
+    },
+  });
+
+  // Define CopilotKit action for playing chords (multiple notes at once)
+  useCopilotAction({
+    name: 'playChord',
+    description:
+      'Play multiple notes simultaneously as a chord. Use this when the user asks for chords (e.g., "C major chord", "play a G chord"). Available notes are C4 to B5.',
+    available: 'remote',
+    parameters: [
+      {
+        name: 'notes',
+        type: 'object',
+        description: 'Array of notes to play together (e.g., ["C4", "E4", "G4"] for C major)',
+        required: true,
+      },
+    ],
+    handler: async ({ notes }) => {
+      // Validate input is an array
+      if (!Array.isArray(notes)) {
+        return 'Error: notes must be an array';
+      }
+
+      // Validate all notes exist
+      const invalidNotes = notes.filter((note) => !PIANO_KEYS.find((k) => k.note === note));
+      if (invalidNotes.length > 0) {
+        return `Invalid notes: ${invalidNotes.join(', ')}`;
+      }
+
+      handleChord(notes);
+      return `Played chord: ${notes.join(', ')}`;
+    },
+  });
+
+  // Define CopilotKit action for playing melodies (sequential notes)
+  useCopilotAction({
+    name: 'playMelody',
+    description:
+      'Play a sequence of notes one after another as a melody. Use this when the user asks for melodies, tunes, or songs (e.g., "play Happy Birthday", "play a scale"). Available notes are C4 to B5.',
+    available: 'remote',
+    parameters: [
+      {
+        name: 'notes',
+        type: 'object',
+        description: 'Array of notes to play in sequence (e.g., ["C4", "D4", "E4", "F4", "G4"])',
+        required: true,
+      },
+      {
+        name: 'tempo',
+        type: 'number',
+        description:
+          'Time between notes in milliseconds. Default is 500ms. Use 300-400 for fast, 500-600 for medium, 700-1000 for slow.',
+        required: false,
+      },
+    ],
+    handler: async ({ notes, tempo }) => {
+      // Validate input is an array
+      if (!Array.isArray(notes)) {
+        return 'Error: notes must be an array';
+      }
+
+      // Validate all notes exist
+      const invalidNotes = notes.filter((note) => !PIANO_KEYS.find((k) => k.note === note));
+      if (invalidNotes.length > 0) {
+        return `Invalid notes: ${invalidNotes.join(', ')}`;
+      }
+
+      await handleMelody(notes, tempo || 500);
+      return `Played melody: ${notes.join(', ')} at ${tempo || 500}ms tempo`;
     },
   });
 
