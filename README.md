@@ -110,3 +110,23 @@ npm run dev
 ```
 Open the webapp at:
 > http://locahost:5173
+
+6. Generative UI - Dynamic UI components rendered based on agent tool calls
+```shell
+# Run the server (agent)
+uv run 06_ui_components/main.py
+```
+```shell
+# Run the CopilotKit runtime service
+cd 06_ui_components/copilotkit_runtime
+npm run dev
+```
+```shell
+# Run the UI
+cd 06_ui_components/ui
+npm run dev
+```
+Open the webapp at:
+> http://localhost:5173
+
+When you ask about the weather in a specific location, the agent will render a weather card component with the location information.

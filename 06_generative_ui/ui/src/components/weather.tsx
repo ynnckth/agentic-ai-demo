@@ -19,8 +19,24 @@ function SunIcon() {
   );
 }
 
+interface WeatherCardProps {
+  location?: string;
+  temperature?: string;
+  condition?: string;
+  humidity?: string;
+  wind?: string;
+  feels_like?: string;
+}
+
 // Weather card component where the location is based on what the agent sets via tool calls.
-export function WeatherCard({ location }: { location?: string }) {
+export function WeatherCard({
+  location = 'Unknown',
+  temperature = 'N/A',
+  condition = 'N/A',
+  humidity = 'N/A',
+  wind = 'N/A',
+  feels_like = 'N/A',
+}: WeatherCardProps) {
   return (
     <div
       style={{
@@ -79,7 +95,7 @@ export function WeatherCard({ location }: { location?: string }) {
               color: 'white',
             }}
           >
-            70°
+            {temperature}
           </div>
           <div
             style={{
@@ -87,7 +103,7 @@ export function WeatherCard({ location }: { location?: string }) {
               color: 'white',
             }}
           >
-            Clear skies
+            {condition}
           </div>
         </div>
 
@@ -108,15 +124,15 @@ export function WeatherCard({ location }: { location?: string }) {
           >
             <div>
               <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '12px', margin: '0 0 4px 0' }}>Humidity</p>
-              <p style={{ color: 'white', fontWeight: '500', margin: 0 }}>45%</p>
+              <p style={{ color: 'white', fontWeight: '500', margin: 0 }}>{humidity}</p>
             </div>
             <div>
               <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '12px', margin: '0 0 4px 0' }}>Wind</p>
-              <p style={{ color: 'white', fontWeight: '500', margin: 0 }}>5 kph</p>
+              <p style={{ color: 'white', fontWeight: '500', margin: 0 }}>{wind}</p>
             </div>
             <div>
               <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '12px', margin: '0 0 4px 0' }}>Feels Like</p>
-              <p style={{ color: 'white', fontWeight: '500', margin: 0 }}>72°</p>
+              <p style={{ color: 'white', fontWeight: '500', margin: 0 }}>{feels_like}</p>
             </div>
           </div>
         </div>
