@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useCopilotAction } from '@copilotkit/react-core';
 
 interface PianoKey {
@@ -9,6 +9,26 @@ interface PianoKey {
 
 const PianoKeyboard = () => {
   const [activeKey, setActiveKey] = useState<string | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+
+  // Initialize Audio Context
+  useEffect(() => {
+    // Create AudioContext on first user interaction (browser requirement)
+    const initAudioContext = () => {
+      if (!audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      }
+    };
+
+    // Initialize on first click
+    document.addEventListener('click', initAudioContext, { once: true });
+
+    return () => {
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
+    };
+  }, []);
 
   // Define 2 octaves of piano keys (C4 to B5)
   const keys: PianoKey[] = [
@@ -43,10 +63,46 @@ const PianoKeyboard = () => {
   const whiteKeys = keys.filter((key) => !key.isBlack);
   const blackKeys = keys.filter((key) => key.isBlack);
 
+  const playSound = (frequency: number) => {
+    if (!audioContextRef.current) {
+      // Initialize audio context if not already done
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+
+    const audioContext = audioContextRef.current;
+
+    // Create oscillator (sound generator)
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    // Connect nodes: oscillator -> gain -> speakers
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    // Configure the sound
+    oscillator.type = 'sine'; // Smooth piano-like sound
+    oscillator.frequency.value = frequency;
+
+    // Envelope: fade in and fade out for natural sound
+    const now = audioContext.currentTime;
+    gainNode.gain.setValueAtTime(0, now);
+    gainNode.gain.linearRampToValueAtTime(0.3, now + 0.01); // Quick attack
+    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 1); // Decay
+
+    // Start and stop the sound
+    oscillator.start(now);
+    oscillator.stop(now + 1); // Play for 1 second
+  };
+
   const handleKeyPress = (note: string) => {
     setActiveKey(note);
-    // TODO: Play sound using Web Audio API
-    console.log('Playing note:', note);
+
+    // Find the frequency for this note and play it
+    const key = keys.find((k) => k.note === note);
+    if (key) {
+      playSound(key.frequency);
+      console.log('Playing note:', note, 'at', key.frequency, 'Hz');
+    }
 
     // Reset active key after a short delay
     setTimeout(() => setActiveKey(null), 200);
