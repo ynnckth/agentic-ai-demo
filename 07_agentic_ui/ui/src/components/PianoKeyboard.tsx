@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCopilotAction } from '@copilotkit/react-core';
 
 interface PianoKey {
   note: string;
@@ -50,6 +51,33 @@ const PianoKeyboard = () => {
     // Reset active key after a short delay
     setTimeout(() => setActiveKey(null), 200);
   };
+
+  // Define CopilotKit action for the agent to play notes
+  useCopilotAction({
+    name: 'playNote',
+    description:
+      'Play a note on the piano keyboard. Available notes are C4, C#4, D4, D#4, E4, F4, F#4, G4, G#4, A4, A#4, B4, C5, C#5, D5, D#5, E5, F5, F#5, G5, G#5, A5, A#5, B5',
+    available: 'remote',
+    parameters: [
+      {
+        name: 'note',
+        type: 'string',
+        description: "The note to play (e.g., 'C4', 'D#5'). Must be a valid note from C4 to B5.",
+        required: true,
+      },
+    ],
+    handler: async ({ note }) => {
+      // Validate that the note exists
+      const validNote = keys.find((key) => key.note === note);
+      if (!validNote) {
+        console.error(`Invalid note: ${note}`);
+        return `Invalid note: ${note}. Valid notes are C4 to B5.`;
+      }
+
+      handleKeyPress(note);
+      return `Played note: ${note}`;
+    },
+  });
 
   const getBlackKeyPosition = (note: string): number => {
     // Calculate the position of black keys relative to white keys
