@@ -55,6 +55,19 @@ Generative UI allows agents to create rich, interactive interfaces dynamically b
 
 ## Architecture
 
-- **Backend**: Python agent using PydanticAI with UI component generation
-- **Runtime**: CopilotKit runtime service (TypeScript)
-- **Frontend**: React application with dynamic component rendering
+## Architecture
+
+```mermaid
+graph LR
+    A[React Frontend<br/>Port 5173] <-->|WebSocket| B[CopilotKit Runtime<br/>TypeScript Server]
+    B <-->|HTTP/API| C[Python Agent<br/>PydanticAI Backend]
+    
+    style A fill:#61dafb,stroke:#333,stroke-width:2px,color:#000
+    style B fill:#3178c6,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#3776ab,stroke:#333,stroke-width:2px,color:#fff
+```
+
+- **Frontend**: React application with CopilotKit components (Port 5173)
+- **Runtime**: CopilotKit runtime service - TypeScript middleware that bridges the frontend and backend
+- **Backend**: Python agent using PydanticAI - handles the AI logic and tool execution
+
