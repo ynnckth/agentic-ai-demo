@@ -93,16 +93,20 @@ ASSISTANT: Here is today's weather in Singapore, based on Google:
 This information is current as of Friday, 8:00 pm, and reflects generally cloudy conditions. If you need more detailed hourly or extended forecasts, let me know!
 ```
 
-5. UI integration using AG-UI and CopilotKit
+5. User interface integration using AG-UI and CopilotKit for a simple chat application
 ```shell
 # Run the server (agent)
 uv run 05_basic_ui/main.py
+```
+```shell
+# Run the CopilotKit runtime service
+cd 05_basic_ui/copilotkit_runtime
+npm run dev
 ```
 ```shell
 # Run the UI
 cd 05_basic_ui/ui
 npm run dev
 ```
-
 Open the webapp at:
-> http://locahost:3000
+> http://locahost:5173
