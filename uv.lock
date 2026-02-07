@@ -15,9 +15,9 @@ wheels = [
 ]
 
 [[package]]
-name = "agenticai-camp25"
+name = "agenticai-demo"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "ddgs" },
     { name = "pydantic-ai" },

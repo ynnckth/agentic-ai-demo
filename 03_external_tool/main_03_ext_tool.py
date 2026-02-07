@@ -1,20 +1,17 @@
 from dotenv import load_dotenv
 from pydantic_ai import Agent
-from pydantic_ai.mcp import MCPServerStdio
+from pydantic_ai.common_tools.duckduckgo import duckduckgo_search_tool
 
-from helpers import log_events
+from helpers.logging import log_events
 
 
 load_dotenv()
 
 
-server = MCPServerStdio("npx", args=["-y", "@playwright/mcp@latest"], timeout=60)
-
-
 agent = Agent(
     "openai:gpt-4.1",
+    tools=[duckduckgo_search_tool()],
     system_prompt="You are a helpful assistant.",
-    toolsets=[server],
 )
 
 

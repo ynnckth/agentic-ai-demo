@@ -1,22 +1,21 @@
 from dotenv import load_dotenv
 from pydantic_ai import Agent
+from pydantic_ai.mcp import MCPServerStdio
 
-from helpers import log_events
+from helpers.logging import log_events
 
 
 load_dotenv()
 
 
+server = MCPServerStdio("npx", args=["-y", "@playwright/mcp@latest"], timeout=60)
+
+
 agent = Agent(
     "openai:gpt-4.1",
     system_prompt="You are a helpful assistant.",
+    toolsets=[server],
 )
-
-
-@agent.tool_plain  
-def get_weather(location: str) -> str:
-    """Get the current weather."""
-    return f"It's sunny and 25 °C in {location}."
 
 
 def main() -> None:
