@@ -62,18 +62,18 @@ You need to run three services simultaneously:
 
 ### Terminal 1 - Backend Agent (Port 8000)
 ```bash
-python 07_agentic_ui/main.py
+python 07_frontend_actions/main.py
 ```
 
 ### Terminal 2 - CopilotKit Runtime (Port 4000)
 ```bash
-cd 07_agentic_ui/copilot-runtime
+cd 07_frontend_actions/copilot-runtime
 npm run dev
 ```
 
 ### Terminal 3 - Frontend UI (Port 5173)
 ```bash
-cd 07_agentic_ui/ui
+cd 07_frontend_actions/ui
 npm run dev
 ```
 

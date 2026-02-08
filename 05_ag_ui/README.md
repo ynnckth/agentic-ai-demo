@@ -1,14 +1,14 @@
-# Demo 6: Generative UI
+# Demo 5: Basic UI
 
-Generative UI - Dynamic UI components rendered based on agent tool calls. This demo showcases how agents can generate custom UI components dynamically based on their actions.
+User interface integration using AG-UI and CopilotKit for a simple chat application. This demo demonstrates how to build a web-based chat interface for your agent.
 
 ## What This Demo Shows
 
 This demo showcases:
-- Dynamic UI component generation
-- Agent-driven interface rendering
-- Weather card components as an example
-- Seamless integration between agent actions and UI updates
+- Frontend integration with React
+- CopilotKit runtime for agent communication
+- Real-time chat interface
+- Full-stack agentic application architecture
 
 ## Running the Demo
 
@@ -16,44 +16,33 @@ This demo requires running three separate components:
 
 ### 1. Run the server (agent)
 ```shell
-uv run 06_generative_ui/main.py
+uv run 05_ag_ui/main.py
 ```
 
 ### 2. Run the CopilotKit runtime service
 ```shell
-cd 06_generative_ui/copilot-runtime
+cd 05_ag_ui/copilotkit_runtime
 npm run dev
 ```
 
 ### 3. Run the UI
 ```shell
-cd 06_generative_ui/ui
+cd 05_ag_ui/ui
 npm run dev
 ```
 
 ### 4. Open the webapp
 Navigate to: http://localhost:5173
 
-## Example Usage
-
-When you ask about the weather in a specific location, the agent will render a weather card component with the location information.
-
-**Try asking:**
-- "What's the weather in New York?"
-- "Show me the weather in Tokyo"
-- "How's the weather in London today?"
-
 ## Key Takeaway
 
-Generative UI allows agents to create rich, interactive interfaces dynamically based on their actions and the context of the conversation. This creates a more engaging and informative user experience beyond simple text responses.
+By integrating a web UI, you can create user-friendly interfaces for your agents, making them accessible to end users through familiar chat interfaces.
 
 ## Prerequisites
 
 - Python with uv installed
 - Node.js installed
 - OpenAI API key configured (see main project README)
-
-## Architecture
 
 ## Architecture
 
@@ -70,3 +59,4 @@ graph LR
 - **Frontend**: React application with CopilotKit components (Port 5173)
 - **Runtime**: CopilotKit runtime service - TypeScript middleware that bridges the frontend and backend (Port 4000)
 - **Backend**: Python agent using PydanticAI - handles the AI logic and tool execution (Port 8000)
+

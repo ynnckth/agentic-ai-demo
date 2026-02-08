@@ -1,4 +1,4 @@
-# Agentic AI Demo
+# Agentic AI Demos & Experiments
 
 A simple demo showcasing the building blocks of Agentic AI using Python and [PydanticAI](https://ai.pydantic.dev/).
 
@@ -96,16 +96,16 @@ This information is current as of Friday, 8:00 pm, and reflects generally cloudy
 5. User interface integration using AG-UI and CopilotKit for a simple chat application
 ```shell
 # Run the server (agent)
-uv run 05_basic_ui/main.py
+uv run 05_ag_ui/main.py
 ```
 ```shell
 # Run the CopilotKit runtime service
-cd 05_basic_ui/copilotkit_runtime
+cd 05_ag_ui/copilotkit_runtime
 npm run dev
 ```
 ```shell
 # Run the UI
-cd 05_basic_ui/ui
+cd 05_ag_ui/ui
 npm run dev
 ```
 Open the webapp at:
