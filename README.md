@@ -114,16 +114,16 @@ Open the webapp at:
 6. Generative UI - Dynamic UI components rendered based on agent tool calls
 ```shell
 # Run the server (agent)
-uv run 06_ui_components/main.py
+uv run 06_static_gen_ui/main.py
 ```
 ```shell
 # Run the CopilotKit runtime service
-cd 06_ui_components/copilotkit_runtime
+cd 06_static_gen_ui/copilotkit_runtime
 npm run dev
 ```
 ```shell
 # Run the UI
-cd 06_ui_components/ui
+cd 06_static_gen_ui/ui
 npm run dev
 ```
 Open the webapp at:

@@ -16,18 +16,18 @@ This demo requires running three separate components:
 
 ### 1. Run the server (agent)
 ```shell
-uv run 06_ui_components/main.py
+uv run 06_static_gen_ui/main.py
 ```
 
 ### 2. Run the CopilotKit runtime service
 ```shell
-cd 06_ui_components/copilot-runtime
+cd 06_static_gen_ui/copilot-runtime
 npm run dev
 ```
 
 ### 3. Run the UI
 ```shell
-cd 06_ui_components/ui
+cd 06_static_gen_ui/ui
 npm run dev
 ```
 

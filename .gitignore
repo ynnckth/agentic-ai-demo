@@ -15,6 +15,5 @@ wheels/
 # IDE files
 .idea/
 
-# Node / frontend
-ui/node_modules
-ui/dist
+**/node_modules
+**/dist
